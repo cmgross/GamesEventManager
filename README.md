@@ -1,4 +1,4 @@
-nasga.me
+Games Event Manager
 ========
 My wife and I are amateur Highland Games athletes.
 That means wearing a kilt, throwing big rocks and flipping trees end over end while wearing a kilt.
