@@ -19,8 +19,11 @@ function initialize() {
         var homeMarker = new google.maps.Marker({
             position: homeLatlng,
             map: map,
+            draggable: false,
+            animation: google.maps.Animation.DROP,
             title: $(".homezip").attr("data-zip")
         });
+        homeMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
         homeMarker.setMap(map);
         $.each($(".mark"), function (index, value) {
             var marker = new google.maps.Marker({

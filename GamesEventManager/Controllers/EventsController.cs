@@ -29,7 +29,7 @@ namespace GamesEventManager.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                {//TODO: have a valid address check for create and edit posts before sending to DB
                     EventService.Create(gamesEvent);
                     return RedirectToAction("Index");
                 }
