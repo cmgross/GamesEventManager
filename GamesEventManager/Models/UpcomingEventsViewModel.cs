@@ -21,7 +21,7 @@ namespace GamesEventManager.Models
             if (!Valid) return;
             Lat = response.Results.FirstOrDefault().Geometry.Location.Lat;
             Lng = response.Results.FirstOrDefault().Geometry.Location.Lng;
-            Events = EventsViewModel.GetEvents(HomeZipCode);
+            Events = EventsViewModel.GetEvents(HomeZipCode).OrderBy(d => d.EventDateTime).ToList();
         }
     }
 }
