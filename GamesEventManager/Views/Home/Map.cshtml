@@ -52,9 +52,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.HoursFromHome)
                     </td>
-                    <td>
-                        <a href="@item.EventWebsite" target="_blank">Website</a>
-                    </td>
+                   
+                        <td>
+                            @if (item.EventWebsite != null)
+                            {
+                                <a href="@item.EventWebsite" target="_blank">Website</a>
+                            }
+                            else
+                            {
+                                @:&nbsp;
+                            }
+                        </td>
+                    
                 </tr>
             }
         </table>

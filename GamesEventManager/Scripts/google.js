@@ -34,12 +34,20 @@ function initialize() {
                 title: $(value).attr("data-eventname")
             });
             marker.setMap(map);
+            var website;
+            if ($(value).attr("data-website") === "") {
+                website = "";
+            } else {
+                website = "<a href='" +
+                    $(value).attr("data-website") + "' target='_blank'>Website<br/>";
+
+            }
             var infowindow = new google.maps.InfoWindow({
                 content: "<div class='infoDiv'><h4>" + $(value).attr("data-eventname") + "</h4>"
                     + "<h5>" + $(value).attr("data-date") + "</h5>" + $(value).attr("data-venue") + "<br/>"
-                    + $(value).attr("data-address") + "<br/><br/><a href='" +
-                    $(value).attr("data-website") + "' target='_blank'>Website<br/>" +
-                    "<a href='https://maps.google.com/maps?f=d&saddr=" + $(".homezip").attr("data-zip")
+                    + $(value).attr("data-address") 
+                    + "<br/>" + website + 
+                    "<br/><a href='https://maps.google.com/maps?f=d&saddr=" + $(".homezip").attr("data-zip")
                     + "&daddr=" + $(value).attr("data-address") + "' target='_blank'>Driving Directions</a><br/> " +
                     "<span class='infoWindowDistance'>From zipcode " + $(".homezip").attr("data-zip") + ": " +
                     $(value).attr("data-hours") + ", " + $(value).attr("data-distance") +
