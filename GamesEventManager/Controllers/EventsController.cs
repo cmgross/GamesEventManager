@@ -24,14 +24,19 @@ namespace GamesEventManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Event gamesEvent)
+        public ActionResult Create(Event gameEvent)
         {
             if (ModelState.IsValid)
             {
                 try
-                {//TODO: have a valid address check for create and edit posts before sending to DB
-                    EventService.Create(gamesEvent);
-                    return RedirectToAction("Index");
+                {
+                    if (GoogleMaps.ValidAddress(gameEvent.Address))
+                    {
+                        EventService.Create(gameEvent);
+                        return RedirectToAction("Index");
+                    }
+                    ViewBag.Error = "Invalid address";
+                    return View("Error");
                 }
                 catch (Exception exception)
                 {
@@ -56,8 +61,13 @@ namespace GamesEventManager.Controllers
             {
                 try
                 {
-                   EventService.UpdateEvent(gameEvent);
-                    return RedirectToAction("Index");
+                    if (GoogleMaps.ValidAddress(gameEvent.Address))
+                    {
+                        EventService.UpdateEvent(gameEvent);
+                        return RedirectToAction("Index");
+                    }
+                    ViewBag.Error = "Invalid address";
+                    return View("Error");
                 }
                 catch (Exception exception)
                 {

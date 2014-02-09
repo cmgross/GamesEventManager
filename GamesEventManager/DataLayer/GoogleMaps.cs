@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using ServiceStack.Text;
 
 namespace GamesEventManager.DataLayer
@@ -21,6 +22,11 @@ namespace GamesEventManager.DataLayer
             var result = new WebClient().DownloadString(url);
             var distanceResponse = JsonSerializer.DeserializeFromString<DistanceMatrixResponse.DistanceResponse>(result);
             return distanceResponse;
+        }
+
+        public static bool ValidAddress(string address)
+        {
+            return GeoCodeAddress(address).Status != "ZERO_RESULTS";
         }
     }
 }
