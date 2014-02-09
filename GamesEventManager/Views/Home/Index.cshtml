@@ -1,0 +1,27 @@
+﻿@model GamesEventManager.Models.ZipCodeViewModel
+@{
+    ViewBag.Title = "Highland Games and Map";
+}
+<div class="panel panel-default">
+    <div class="panel-heading">Welcome to Highland Games Event Map!</div>
+    <div class="panel-body">
+        <p>Are you looking to attend a Highland Games and cheer on one of the local Pittsburgh athletes?</p>
+        <p>If so, enter your zipcode to see upcoming, nearby games and Scottish heritage events and how to get there!</p>
+    </div>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "zipSearchForm", @class = "form-inline", @role = "form" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        @Html.LabelFor(m => m.ZipCode, new { @class = "sr-only" })
+        @Html.TextBoxFor(m => m.ZipCode, new { @data_val = "true", @class = "form-control", @placeholder = "Enter zip code", maxlength = 5 })
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>@:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    @Html.ValidationMessageFor(m => m.ZipCode)
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+}

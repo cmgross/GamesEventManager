@@ -1,0 +1,80 @@
+﻿@model GamesEventManager.Models.UpcomingEventsViewModel
+@{
+    ViewBag.Title = "Highland Games Map";
+}
+<div class="panel panel-success">
+    <div class="panel-heading">
+        Upcoming Events Near @Html.DisplayFor(model => model.HomeZipCode)
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover table-condensed eventsTable">
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Venue
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Distance
+                </th>
+                <th>
+                    Travel Time
+                </th>
+                <th>
+                    Website
+                </th>
+            </tr>
+            @foreach (var item in Model.Events)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Venue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DistanceFromHome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HoursFromHome)
+                    </td>
+                    <td>
+                        <a href="@item.EventWebsite" target="_blank">@item.EventWebsite</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<div id="map-canvas" style="width: 640px; height: 480px;">
+</div>
+
+<div class="homezip" data-homelat="@(Model.Lat)" data-homelng="@(Model.Lng)" data-zip="@(Model.HomeZipCode)"></div>
+@foreach (var eventItem in Model.Events)
+{
+    <div class="mark" data-latitude="@(eventItem.Lat)"
+         data-longitude="@(eventItem.Lng)" data-eventname="@(eventItem.Name)" data-venue="@(eventItem.Venue)"
+         data-date="@eventItem.EventDateTime" data-address="@eventItem.Address" data-website="@eventItem.EventWebsite"
+         data-distance="@eventItem.DistanceFromHome" data-hours="@eventItem.HoursFromHome">
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    @Scripts.Render("~/bundles/google")
+}
